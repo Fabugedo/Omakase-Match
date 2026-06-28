@@ -26,8 +26,8 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 - [X] T002 Initialize NestJS + TypeScript app in `backend/` (TypeScript pinned to 5.x), Node 22, with `package.json` scripts (`start:dev`, `build`, `start`)
 - [X] T003 [P] Initialize React + Vite + TypeScript app in `frontend/`
 - [X] T003a [P] Set up i18n in `frontend/` (react-i18next) with `en`/`es`/`pt`/`fr` locale files, English default; enforce **no hardcoded UI strings** (all copy via i18n keys) (FR-016)
-- [ ] T004 [P] Add `docker-compose.yml` (services: `db` Postgres 16, `backend`, `frontend`, `nginx`) and `nginx/nginx.conf` reverse-proxy config
-- [ ] T005 [P] Configure ESLint + Prettier in `backend/` and `frontend/`
+- [X] T004 [P] Add `docker-compose.yml` (services: `db` Postgres 16, `backend`, `frontend`, `nginx`) and `nginx/nginx.conf` reverse-proxy config
+- [X] T005 [P] Configure ESLint + Prettier in `backend/` and `frontend/`
 - [X] T006 Create `backend/.env.example` (DATABASE_URL, ANTHROPIC_API_KEY, ANTHROPIC_MODEL=claude-haiku-4-5, PORT) and confirm `backend/.env` is gitignored
 - [X] T007 [P] Add `backend/src/common/config` module that loads & validates env vars with Zod at startup
 
