@@ -1,0 +1,144 @@
+openapi: 3.1.0
+info:
+  title: Omakase-Match API
+  version: 0.1.0
+  description: >
+    Anonymous anime recommendation API. A deterministic core shortlists candidates from a
+    PostgreSQL catalog; an AI assist (server-side only) re-ranks and explains them. Recommendation
+    strength is returned as a qualitative band, never a numeric score.
+servers:
+  - url: http://localhost:3000
+    description: Local (Docker Compose)
+paths:
+  /health:
+    get:
+      summary: Liveness check
+      responses:
+        "200":
+          description: Service is up
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, enum: [ok] }
+                required: [status]
+  /genres:
+    get:
+      summary: List selectable genres and themes
+      responses:
+        "200":
+          description: Genres/themes available for taste selection
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Genre" }
+  /anime/search:
+    get:
+      summary: Search the catalog by title (autocomplete for favorites)
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: { type: string, minLength: 1, maxLength: 100 }
+          description: Partial title
+      responses:
+        "200":
+          description: Matching titles (capped, e.g. 10)
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/AnimeSummary" }
+        "400":
+          description: Missing or invalid query
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+  /recommendations:
+    post:
+      summary: Generate banded anime recommendations from a taste profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/TasteProfile" }
+      responses:
+        "200":
+          description: Ranked, banded recommendations (reasons present when AI assist is available)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items: { $ref: "#/components/schemas/Recommendation" }
+                  aiAssisted:
+                    type: boolean
+                    description: false when the deterministic fallback produced the ordering/bands
+                required: [results, aiAssisted]
+        "400":
+          description: Empty/invalid taste profile (e.g. no genres selected)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+components:
+  schemas:
+    Genre:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        kind: { type: string, enum: [GENRE, THEME, DEMOGRAPHIC] }
+      required: [id, name, kind]
+    AnimeSummary:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        imageUrl: { type: string, nullable: true }
+      required: [id, title]
+    TasteProfile:
+      type: object
+      properties:
+        genreIds:
+          type: array
+          minItems: 1
+          items: { type: integer }
+        favoriteAnimeIds:
+          type: array
+          items: { type: integer }
+          default: []
+        includeExplicit:
+          type: boolean
+          default: false
+          description: May be true only after the visitor self-confirms they are 18+
+      required: [genreIds]
+    Recommendation:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        titleEnglish: { type: string, nullable: true }
+        synopsis: { type: string, nullable: true }
+        imageUrl: { type: string, nullable: true }
+        genres:
+          type: array
+          items: { type: string }
+        band:
+          type: string
+          enum: [CHEFS_PICK, RECOMMENDED, WORTH_A_TRY]
+          description: Displayed as "Chef's pick" / "Recommended" / "Worth a try"
+        reason:
+          type: string
+          nullable: true
+          description: AI explanation; null when the AI assist is unavailable
+      required: [id, title, genres, band]
+    Error:
+      type: object
+      properties:
+        message: { type: string }
+        code: { type: string }
+      required: [message]

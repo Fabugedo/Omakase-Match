@@ -29,8 +29,14 @@ Small, isolated, and low-risk corrections may use a lighter process, but they mu
 
 <!-- SPECKIT START -->
 
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan.
+Active feature: **001-anime-recommendations**. For technologies, project structure, and
+other important context, read the current plan at
+`specs/001-anime-recommendations/plan.md` (with `research.md`, `data-model.md`,
+`contracts/openapi.yaml`, and `quickstart.md` alongside it).
+
+Stack summary: NestJS + TypeScript backend, PostgreSQL (Prisma), React + Vite frontend,
+Zod + AJV validation, OpenAPI-first REST, Claude Haiku 4.5 (backend-only, env-configured),
+anime catalog ingested from Jikan. Deterministic shortlist → AI re-rank; system works AI-off.
 
 <!-- SPECKIT END -->
 
