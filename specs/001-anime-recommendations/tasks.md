@@ -43,7 +43,7 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 - [X] T011 [P] Add AJV validators for raw Jikan responses in `backend/src/catalog/ingestion/jikan.schema.ts` (untrusted external input)
 - [X] T012 Implement Jikan client + throttling in `backend/src/catalog/ingestion/jikan.client.ts`
 - [ ] T013 Implement catalog ingestion job `backend/src/catalog/ingestion/ingest.ts` + npm script `ingest:catalog` (upsert by `malId`, derive `isExplicit`, import genres + join rows; **cap at the top ~3,000 titles by popularity** to bound ingestion time)
-- [ ] T014 [P] Add global error handling + a `GET /health` endpoint in `backend/src/common/`
+- [X] T014 [P] Add global error handling + a `GET /health` endpoint in `backend/src/common/`
 - [ ] T015 Wire `nestjs-zod` so request/response DTOs validate at runtime and feed OpenAPI generation
 
 **Checkpoint**: `docker compose up` → migrate → `npm run ingest:catalog` populates a real catalog. Foundation ready.
