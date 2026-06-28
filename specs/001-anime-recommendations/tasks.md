@@ -39,8 +39,8 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 
 - [X] T008 Add Prisma to `backend/`; define `backend/prisma/schema.prisma` with `Anime`, `Genre`, `AnimeGenre` models + enums (`GenreKind`, `ContentRating`) per data-model.md
 - [ ] T009 Generate the initial Prisma migration and a `PrismaService` in `backend/src/common/prisma.service.ts`
-- [ ] T010 [P] Define shared Zod schemas mirroring `contracts/openapi.yaml` in `backend/src/common/schemas.ts` (TasteProfile, Recommendation, Genre, AnimeSummary, Error)
-- [ ] T011 [P] Add AJV validators for raw Jikan responses in `backend/src/catalog/ingestion/jikan.schema.ts` (untrusted external input)
+- [X] T010 [P] Define shared Zod schemas mirroring `contracts/openapi.yaml` in `backend/src/common/schemas.ts` (TasteProfile, Recommendation, Genre, AnimeSummary, Error)
+- [X] T011 [P] Add AJV validators for raw Jikan responses in `backend/src/catalog/ingestion/jikan.schema.ts` (untrusted external input)
 - [ ] T012 Implement Jikan client + throttling in `backend/src/catalog/ingestion/jikan.client.ts`
 - [ ] T013 Implement catalog ingestion job `backend/src/catalog/ingestion/ingest.ts` + npm script `ingest:catalog` (upsert by `malId`, derive `isExplicit`, import genres + join rows; **cap at the top ~3,000 titles by popularity** to bound ingestion time)
 - [ ] T014 [P] Add global error handling + a `GET /health` endpoint in `backend/src/common/`
