@@ -1,0 +1,77 @@
+// Omakase-Match catalog schema (T008).
+// Only the catalog is persisted — taste profiles and recommendations are
+// transient (anonymous MVP). See specs/001-anime-recommendations/data-model.md.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Jikan distinguishes plain genres from themes and demographics; the taste
+/// form offers GENRE + THEME for selection.
+enum GenreKind {
+  GENRE
+  THEME
+  DEMOGRAPHIC
+}
+
+/// MyAnimeList content ratings. RPLUS and RX drive the 18+ explicit gate.
+enum ContentRating {
+  G
+  PG
+  PG13
+  R17
+  RPLUS
+  RX
+}
+
+model Anime {
+  id           Int            @id @default(autoincrement())
+  malId        Int            @unique
+  title        String
+  titleEnglish String?
+  synopsis     String?
+  imageUrl     String?
+  popularity   Int? // Jikan popularity rank (lower = more popular)
+  score        Float? // Jikan mean score (0–10)
+  members      Int? // audience size (tiebreak signal)
+  rating       ContentRating?
+  isExplicit   Boolean        @default(false) // derived: rating in {RPLUS, RX}
+  year         Int?
+  episodes     Int?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  genres AnimeGenre[]
+
+  @@index([popularity])
+  @@index([isExplicit])
+  @@map("anime")
+}
+
+model Genre {
+  id     Int          @id @default(autoincrement())
+  malId  Int          @unique
+  name   String
+  kind   GenreKind
+  animes AnimeGenre[]
+
+  @@map("genre")
+}
+
+/// Many-to-many join between anime and genre.
+model AnimeGenre {
+  animeId Int
+  genreId Int
+  anime   Anime @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@id([animeId, genreId])
+  @@index([genreId])
+  @@index([animeId])
+  @@map("anime_genre")
+}
