@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   await app.listen(env.PORT);
-  // eslint-disable-next-line no-console
+
   console.log(`Omakase-Match API listening on http://localhost:${env.PORT}`);
 }
 
