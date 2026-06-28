@@ -20,7 +20,7 @@ returns a valid, banded list even when the AI assist is unavailable.
 
 **Primary Dependencies**:
 - Backend: NestJS 11, Prisma 6 (ORM + migrations), `@anthropic-ai/sdk`, `nestjs-zod` + Zod (request/response validation & OpenAPI generation), AJV (validating untrusted external catalog JSON)
-- Frontend: React 19 + Vite 6, TypeScript, a typed fetch client generated from the OpenAPI contract
+- Frontend: React 19 + Vite 6, TypeScript, a typed fetch client generated from the OpenAPI contract; **react-i18next** for UI translations (en/es/pt/fr, English default)
 - Data: Jikan v4 REST API (MyAnimeList data, no API key) for catalog ingestion
 
 **Storage**: PostgreSQL 16 (no PostGIS). Tables: `anime`, `genre`, `anime_genre`. No user tables (anonymous MVP — taste profile and recommendations are per-request, never persisted).

@@ -24,7 +24,8 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 
 - [X] T001 Create monorepo folders `backend/` and `frontend/` per plan.md structure
 - [X] T002 Initialize NestJS + TypeScript app in `backend/` (TypeScript pinned to 5.x), Node 22, with `package.json` scripts (`start:dev`, `build`, `start`)
-- [ ] T003 [P] Initialize React + Vite + TypeScript app in `frontend/`
+- [X] T003 [P] Initialize React + Vite + TypeScript app in `frontend/`
+- [X] T003a [P] Set up i18n in `frontend/` (react-i18next) with `en`/`es`/`pt`/`fr` locale files, English default; enforce **no hardcoded UI strings** (all copy via i18n keys) (FR-016)
 - [ ] T004 [P] Add `docker-compose.yml` (services: `db` Postgres 16, `backend`, `frontend`, `nginx`) and `nginx/nginx.conf` reverse-proxy config
 - [ ] T005 [P] Configure ESLint + Prettier in `backend/` and `frontend/`
 - [X] T006 Create `backend/.env.example` (DATABASE_URL, ANTHROPIC_API_KEY, ANTHROPIC_MODEL=claude-haiku-4-5, PORT) and confirm `backend/.env` is gitignored
@@ -67,7 +68,7 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 
 ### Frontend
 - [ ] T024 [P] [US1] Generate typed API client from `contracts/openapi.yaml` into `frontend/src/api/`
-- [ ] T025 [US1] Build the taste form (`frontend/src/features/taste-form/`): genre/theme multi-select from `GET /genres`, favorite search-as-you-type via `GET /anime/search`, an 18+ self-confirm toggle
+- [ ] T025 [US1] Build the taste form (`frontend/src/features/taste-form/`): genre/theme multi-select from `GET /genres`, favorite search-as-you-type via `GET /anime/search`, an 18+ self-confirm toggle, and a language switcher (EN/ES/PT/FR) — all copy via i18n keys (FR-016)
 - [ ] T026 [US1] Build the results view (`frontend/src/features/recommendations/`): grouped/labeled bands, title/image/synopsis/genres; **render all external/AI text as plain text (never `dangerouslySetInnerHTML`)** (FR-013); explicit **empty / "not enough matches" / weak-confidence** states (FR-012)
 - [ ] T027 [US1] Wire submit → `POST /recommendations` → render; loading + error states
 
@@ -81,7 +82,7 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 
 **Independent Test**: With a valid key, each result has a relevant `reason` and `aiAssisted:true`; with an invalid key, list still returns, `aiAssisted:false`, `reason:null`.
 
-- [ ] T028 [US2] Implement `ai/reranker.service.ts` in `backend/src/ai/` — Anthropic SDK, `ANTHROPIC_MODEL` (Haiku 4.5), structured outputs (JSON schema) returning ordered ids + band + reason for the ~25 shortlist
+- [ ] T028 [US2] Implement `ai/reranker.service.ts` in `backend/src/ai/` — Anthropic SDK, `ANTHROPIC_MODEL` (Haiku 4.5), structured outputs (JSON schema) returning ordered ids + band + reason for the ~25 shortlist, **with each reason written in the visitor's selected language (EN/ES/PT/FR)** (FR-016)
 - [ ] T029 [US2] Validate AI output with Zod; on any error/timeout fall back to deterministic order/bands (Principle II) — in `recommendations.service.ts`
 - [ ] T030 [US2] Integrate reranker into `recommendations.service.ts`: shortlist → AI rerank → set `reason` + `aiAssisted:true`
 - [ ] T031 [US2] Integration test for AI-off fallback in `backend/test/recommendations.e2e-spec.ts` (mock failure → `aiAssisted:false`, valid list)
@@ -109,6 +110,7 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 - [ ] T035 [P] Playwright e2e covering the full flow + AI-off path in `frontend/e2e/recommendations.spec.ts` (runs the quickstart.md scenarios)
 - [ ] T036 [P] Backend hardening: Helmet, CORS (allow only frontend origin), basic rate limit on `POST /recommendations`
 - [ ] T037 [P] GitHub Actions CI (`.github/workflows/ci.yml`): install, lint, typecheck, test, build (backend + frontend) — constitution requires GitHub Actions
+- [ ] T037a [P] Generate/curate the `es`/`pt`/`fr` locale files (AI-assisted) from `en`, and verify the UI renders correctly in each language (FR-016)
 - [ ] T038 [P] Root `README.md`: what it is, local run (link quickstart.md), env vars (no secrets)
 - [ ] T039 Run `quickstart.md` end-to-end and confirm all acceptance rows pass
 
@@ -136,4 +138,4 @@ Scoring/banding (T018–T020) before the service (T021) before the endpoint (T02
 
 **MVP first**: Phase 1 → Phase 2 → Phase 3 (US1) → **stop & validate** (deterministic recommender works, demoable) → then layer US2 (AI), US3 (refine), and Polish. Commit after each task or logical group, secret-scan before every commit.
 
-**Total: 39 tasks** — Setup 7 · Foundational 8 · US1 12 · US2 5 · US3 2 · Polish 5.
+**Total: 41 tasks** — Setup 8 · Foundational 8 · US1 12 · US2 5 · US3 2 · Polish 6. *(i18n folded in 2026-06-28: T003a, T037a, + language in T025/T028.)*

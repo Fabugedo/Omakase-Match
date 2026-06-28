@@ -15,6 +15,10 @@
 - Q: Should the catalog exclude adult/explicit (hentai / R18) titles? → A: Exclude by default; include them only after the visitor self-confirms they are 18+ (anonymous self-attestation toggle, no account, no formal age verification).
 - Q: How does a visitor name their favorite anime? → A: Search-as-you-type autocomplete — the visitor picks real titles from the catalog as they type.
 
+### Session 2026-06-28
+
+- Q: Should the app support multiple languages (boss's audience is Africa & Latin America)? → A: Yes — the UI supports **English, Spanish, Portuguese, French** (English default). Per-recommendation explanations are written in the selected language. (Implementation: i18n translation files + AI-written blurbs in-language; not live page translation.)
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Get anime recommendations from a taste form (Priority: P1)
@@ -92,6 +96,7 @@ After seeing results, the visitor can adjust their selections or favorites and r
 - **FR-013**: System MUST treat catalog data and AI-generated text as untrusted input and validate/sanitize it before displaying it to the visitor.
 - **FR-014**: Visitors MUST be able to adjust their preferences and regenerate recommendations without restarting the experience. *(supports US3)*
 - **FR-015**: System MUST exclude adult/explicit (e.g. hentai / R18) anime from results by default, and MUST include such titles only after the visitor self-confirms they are 18 or older; this confirmation requires no account and is a self-attestation, not formal age verification.
+- **FR-016**: System MUST let the visitor use the interface in English, Spanish, Portuguese, or French (English as the default/fallback), and MUST write each recommendation's explanation in the visitor's selected language.
 
 ### Key Entities *(include if feature involves data)*
 
