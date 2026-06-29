@@ -23,4 +23,10 @@ export class CatalogController {
   search(@Query() query: AnimeSearchQueryDto): Promise<AnimeSummary[]> {
     return this.catalog.searchAnime(query.q);
   }
+
+  @Get('anime/showcase')
+  @ApiOkResponse({ type: [AnimeSummaryDto] })
+  showcase(): Promise<AnimeSummary[]> {
+    return this.catalog.getShowcase();
+  }
 }

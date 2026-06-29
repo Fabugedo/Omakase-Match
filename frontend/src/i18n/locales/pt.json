@@ -2,7 +2,12 @@
   "appName": "Omakase-Match",
   "tagline": "Diga o que você ama — vamos servir animes que você vai amar.",
   "language": "Idioma",
-  "hero": { "kicker": "Seu concierge de anime" },
+  "hero": {
+    "kicker": "Sistema de recomendação de anime",
+    "title": "Encontre sua próxima obsessão",
+    "cta": "Começar"
+  },
+  "steps": { "taste": "01 · Diga o que você ama", "results": "02 · Suas combinações" },
   "form": {
     "showMore": "Mostrar mais temas",
     "showLess": "Mostrar menos",

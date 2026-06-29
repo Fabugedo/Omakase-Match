@@ -56,6 +56,17 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/Error" }
+  /anime/showcase:
+    get:
+      summary: Popular titles with cover art (feeds the landing-hero collage)
+      responses:
+        "200":
+          description: A set of popular, SFW titles
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/AnimeSummary" }
   /recommendations:
     post:
       summary: Generate banded anime recommendations from a taste profile

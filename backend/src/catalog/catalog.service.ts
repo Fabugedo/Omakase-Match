@@ -4,6 +4,7 @@ import { PrismaService } from '../common/prisma.service';
 import type { AnimeSummary, Genre } from '../common/schemas';
 
 const SEARCH_LIMIT = 10;
+const SHOWCASE_LIMIT = 30;
 
 /**
  * Read access to the catalog (T016, T017): the selectable genres for the taste
@@ -33,6 +34,16 @@ export class CatalogService {
       },
       orderBy: { popularity: 'asc' }, // lower rank = more popular; nulls sort last
       take: SEARCH_LIMIT,
+    });
+    return rows.map((a) => ({ id: a.id, title: a.title, imageUrl: a.imageUrl }));
+  }
+
+  /** Most-popular SFW titles with cover art — feeds the landing-hero collage. */
+  async getShowcase(): Promise<AnimeSummary[]> {
+    const rows = await this.prisma.anime.findMany({
+      where: { imageUrl: { not: null }, isExplicit: false },
+      orderBy: { popularity: 'asc' },
+      take: SHOWCASE_LIMIT,
     });
     return rows.map((a) => ({ id: a.id, title: a.title, imageUrl: a.imageUrl }));
   }

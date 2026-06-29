@@ -65,3 +65,22 @@ favorite anime — closer to *discovering a good book in a warm little shop* tha
 Use the frontend-design capability to produce a concrete look, then verify in a real browser with
 Playwright, iterating until it matches this cozy/omakase direction. Keep it accessible (keyboard,
 semantic markup, good labels) per the constitution.
+
+## Direction update — 2026-06-29 (supersedes the cozy palette above)
+
+After seeing the first cozy build, the user found it too plain and **revised the visual
+direction to a 90s / Evangelion aesthetic** (the *concept* — "we choose for you, person→anime" —
+is unchanged; only the look changed).
+
+- **DECISION — aesthetic:** dark, high-contrast, near-black background; cream text; **NERV red**
+  + **hazard amber** accents; film grain + subtle scanlines; bold condensed uppercase type
+  (Oswald), monospace terminal labels (JetBrains Mono), Inter body. Angular (small radii).
+- **DECISION — hero:** a tilted **collage of real catalog cover art** (served by
+  `GET /anime/showcase`, ~30 most-popular SFW titles) behind a dark scrim + bold headline + CTA.
+  Chosen because we cannot generate custom character art in-tool; the collage uses real content.
+- **Structure:** single scrolling landing — hero → "01 · tell us what you love" (taste form) →
+  "02 · your matches" (results). Same flow, presented as a landing.
+- **Still AVOID (unchanged):** player-to-player matchmaking, party/roles (Tank/DPS/Healer),
+  compatibility %, member profiles, fake stats. We match a person to *anime*.
+- **RISK/limitation:** a bespoke hero illustration would need to be commissioned/generated
+  separately and dropped in later; the collage is the ship-now solution.

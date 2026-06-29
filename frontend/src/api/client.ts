@@ -37,6 +37,12 @@ export async function searchAnime(q: string): Promise<AnimeSummary[]> {
   return data;
 }
 
+export async function getShowcase(): Promise<AnimeSummary[]> {
+  const { data, error } = await client.GET('/anime/showcase');
+  if (error || !data) throw new Error('Failed to load showcase');
+  return data;
+}
+
 export async function getRecommendations(profile: TasteProfile): Promise<RecommendationsResult> {
   const { data, error } = await client.POST('/recommendations', { body: profile });
   if (error || !data) throw new Error('Failed to generate recommendations');

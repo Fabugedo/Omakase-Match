@@ -2,7 +2,12 @@
   "appName": "Omakase-Match",
   "tagline": "Dinos qué te gusta y te serviremos anime que te encantará.",
   "language": "Idioma",
-  "hero": { "kicker": "Tu conserje de anime" },
+  "hero": {
+    "kicker": "Sistema de recomendación de anime",
+    "title": "Encuentra tu próxima obsesión",
+    "cta": "Empezar"
+  },
+  "steps": { "taste": "01 · Dinos qué te gusta", "results": "02 · Tus coincidencias" },
   "form": {
     "showMore": "Mostrar más temas",
     "showLess": "Mostrar menos",
