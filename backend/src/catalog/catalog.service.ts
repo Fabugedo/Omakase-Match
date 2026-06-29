@@ -4,7 +4,7 @@ import { PrismaService } from '../common/prisma.service';
 import type { AnimeSummary, Genre } from '../common/schemas';
 
 const SEARCH_LIMIT = 10;
-const SHOWCASE_LIMIT = 30;
+const SHOWCASE_LIMIT = 48;
 
 /**
  * Read access to the catalog (T016, T017): the selectable genres for the taste

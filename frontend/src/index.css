@@ -23,6 +23,7 @@
 
   font: 16px/1.6 var(--body);
   color: var(--ink);
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -80,26 +81,69 @@ button {
 }
 
 .app {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 1.5rem 6rem;
+  overflow-x: hidden;
 }
 
-/* hazard stripe divider */
+/* centered content column reused across full-width section bands */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* hazard stripe divider (full-width band) */
 .hazard {
   height: 8px;
   background: repeating-linear-gradient(45deg, var(--amber) 0 14px, #0a0a0f 14px 28px);
   opacity: 0.85;
-  margin: 0 -1.5rem;
 }
 
-/* ---- header ---- */
-.site-header {
+/* ---- top nav ---- */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 15, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.site-nav .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.1rem 0;
+  gap: 1.25rem;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-left: auto;
+}
+.nav-link {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 0.3rem 0;
+  transition: color 0.14s;
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+  }
 }
 .brand {
   display: inline-flex;
@@ -139,20 +183,31 @@ button {
 /* ---- hero ---- */
 .hero {
   position: relative;
-  margin: 0 -1.5rem;
-  padding: clamp(3rem, 9vw, 6rem) 1.5rem clamp(3rem, 7vw, 5rem);
+  display: flex;
+  align-items: center;
+  min-height: clamp(440px, 72vh, 760px);
+  padding: clamp(3rem, 9vw, 6rem) 0;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: 76px;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 .hero-collage {
   position: absolute;
-  inset: -2% -2% -2% -2%;
+  inset: -5%;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 4px;
-  opacity: 0.32;
-  filter: grayscale(0.25) contrast(1.05);
-  transform: rotate(-4deg) scale(1.18);
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 6px;
+  opacity: 0.34;
+  filter: grayscale(0.2) contrast(1.05);
+  transform: rotate(-4deg) scale(1.16);
 }
 .hero-collage img {
   width: 100%;
@@ -164,9 +219,15 @@ button {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(700px 400px at 28% 45%, rgba(10, 10, 15, 0.55), transparent 70%),
-    linear-gradient(90deg, var(--bg) 12%, rgba(10, 10, 15, 0.55) 55%, rgba(10, 10, 15, 0.8) 100%),
-    linear-gradient(0deg, var(--bg) 2%, transparent 40%);
+    radial-gradient(680px 420px at 26% 48%, rgba(10, 10, 15, 0.55), transparent 72%),
+    linear-gradient(
+      90deg,
+      rgba(10, 10, 15, 0.92) 0%,
+      rgba(10, 10, 15, 0.72) 38%,
+      rgba(10, 10, 15, 0.32) 70%,
+      rgba(10, 10, 15, 0.55) 100%
+    ),
+    linear-gradient(0deg, var(--bg) 0%, transparent 38%);
 }
 .hero-content {
   position: relative;
@@ -205,7 +266,14 @@ button {
 
 /* ---- section framing ---- */
 .section {
-  padding-top: 3rem;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  scroll-margin-top: 76px;
+}
+.section-lead {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  max-width: 56ch;
+  margin: 0.4rem 0 0;
 }
 .step-label {
   font-family: var(--mono);
@@ -224,6 +292,102 @@ button {
   flex: 1;
   height: 1px;
   background: var(--border);
+}
+
+/* ---- how it works ---- */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+}
+.how-card {
+  background: linear-gradient(180deg, var(--panel), var(--bg-2));
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--red);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+}
+.how-num {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+}
+.how-card h3 {
+  margin: 0.7rem 0 0.55rem;
+  font-size: 1.3rem;
+}
+.how-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* ---- catalog strip ---- */
+.catalog-band {
+  border-block: 1px solid var(--border);
+  background: var(--bg-2);
+  padding: clamp(2.2rem, 5vw, 3.4rem) 0;
+  scroll-margin-top: 76px;
+  overflow: hidden;
+}
+.catalog-marquee {
+  margin-top: 1.5rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+.catalog-track {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+  animation: marquee 70s linear infinite;
+}
+.catalog-track:hover {
+  animation-play-state: paused;
+}
+.catalog-track img {
+  width: 108px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  flex-shrink: 0;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---- footer ---- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+  padding: 2.4rem 0 3rem;
+}
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+.footer-brand {
+  font-family: var(--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+.footer-note {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
 }
 
 /* ---- panel ---- */
@@ -731,5 +895,11 @@ button {
   }
   body::after {
     display: none;
+  }
+  :root {
+    scroll-behavior: auto;
+  }
+  .catalog-marquee {
+    overflow-x: auto;
   }
 }

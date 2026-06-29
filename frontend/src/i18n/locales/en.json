@@ -2,6 +2,13 @@
   "appName": "Omakase-Match",
   "tagline": "Tell us what you love — we'll serve you anime you'll love.",
   "language": "Language",
+  "nav": {
+    "aria": "Primary",
+    "home": "Home",
+    "how": "How it works",
+    "catalog": "Catalog",
+    "match": "Find a match"
+  },
   "hero": {
     "kicker": "Anime recommendation system",
     "title": "Find your next obsession",
@@ -44,5 +51,28 @@
     "loading": "Plating your recommendations…",
     "error": "Something went wrong. Please try again.",
     "retry": "Try again"
+  },
+  "how": {
+    "label": "How it works",
+    "lead": "No account, no noise — three steps from your taste to a shortlist worth watching.",
+    "step1": {
+      "title": "Tell us your taste",
+      "body": "Pick the genres and themes you love and add a few favorite titles. Nothing is saved — it stays on your screen."
+    },
+    "step2": {
+      "title": "We score the catalog",
+      "body": "We rank thousands of titles by how well they fit you — genre overlap, your favorites, and popularity. Transparent, not a black box."
+    },
+    "step3": {
+      "title": "Get your omakase",
+      "body": "Your matches arrive grouped from Chef's pick to Worth a try. Tweak your taste and run it again anytime."
+    }
+  },
+  "featured": {
+    "label": "From the catalog",
+    "lead": "A glimpse of the cover art waiting inside."
+  },
+  "footer": {
+    "note": "Anime data via the public Jikan API · a spec-driven prototype"
   }
 }
