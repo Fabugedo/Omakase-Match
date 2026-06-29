@@ -1,7 +1,40 @@
 {
   "appName": "Omakase-Match",
   "tagline": "Tell us what you love — we'll serve you anime you'll love.",
-  "start": "Find my anime",
   "language": "Language",
-  "comingSoon": "The taste form is coming soon."
+  "form": {
+    "heading": "What do you love?",
+    "subheading": "Pick a few genres and themes, and we'll do the rest.",
+    "genres": "Genres",
+    "themes": "Themes",
+    "genresHint": "Tap the ones you enjoy",
+    "favorites": "Favorite anime",
+    "favoritesOptional": "optional",
+    "favoritesHint": "Add a few you already love and we'll find more like them.",
+    "favoritesPlaceholder": "Search anime by title…",
+    "searching": "Searching…",
+    "noMatches": "No titles found",
+    "remove": "Remove",
+    "explicit": "Include mature (18+) titles",
+    "explicitConfirm": "I confirm I'm 18 or older",
+    "submit": "Omakase — surprise me!",
+    "needGenre": "Pick at least one genre or theme to continue."
+  },
+  "results": {
+    "heading": "Your omakase",
+    "curated": "Hand-picked for your taste.",
+    "startOver": "Start over",
+    "empty": "No matches yet — try a different mix of genres.",
+    "notEnough": "Just a few matches this time — here's what we found.",
+    "bands": {
+      "CHEFS_PICK": "Chef's pick",
+      "RECOMMENDED": "Recommended",
+      "WORTH_A_TRY": "Worth a try"
+    }
+  },
+  "state": {
+    "loading": "Plating your recommendations…",
+    "error": "Something went wrong. Please try again.",
+    "retry": "Try again"
+  }
 }

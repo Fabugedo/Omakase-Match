@@ -68,9 +68,9 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 
 ### Frontend
 - [X] T024 [P] [US1] Generate typed API client from `contracts/openapi.yaml` into `frontend/src/api/`
-- [ ] T025 [US1] Build the taste form (`frontend/src/features/taste-form/`): genre/theme multi-select from `GET /genres`, favorite search-as-you-type via `GET /anime/search`, an 18+ self-confirm toggle, and a language switcher (EN/ES/PT/FR) — all copy via i18n keys (FR-016)
-- [ ] T026 [US1] Build the results view (`frontend/src/features/recommendations/`): grouped/labeled bands, title/image/synopsis/genres; **render all external/AI text as plain text (never `dangerouslySetInnerHTML`)** (FR-013); explicit **empty / "not enough matches" / weak-confidence** states (FR-012)
-- [ ] T027 [US1] Wire submit → `POST /recommendations` → render; loading + error states
+- [X] T025 [US1] Build the taste form (`frontend/src/features/taste-form/`): genre/theme multi-select from `GET /genres`, favorite search-as-you-type via `GET /anime/search`, an 18+ self-confirm toggle, and a language switcher (EN/ES/PT/FR) — all copy via i18n keys (FR-016)
+- [X] T026 [US1] Build the results view (`frontend/src/features/recommendations/`): grouped/labeled bands, title/image/synopsis/genres; **render all external/AI text as plain text (never `dangerouslySetInnerHTML`)** (FR-013); explicit **empty / "not enough matches" / weak-confidence** states (FR-012)
+- [X] T027 [US1] Wire submit → `POST /recommendations` → render; loading + error states
 
 **Checkpoint**: MVP works end-to-end with no AI. Demoable.
 
