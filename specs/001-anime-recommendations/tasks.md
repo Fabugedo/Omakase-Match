@@ -62,9 +62,9 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 - [X] T018 [P] [US1] Implement pure scoring in `backend/src/recommendations/scoring.ts` (candidate set + weighted score + top-25 shortlist per data-model.md)
 - [X] T019 [P] [US1] Implement banding in `backend/src/recommendations/banding.ts` (score → CHEFS_PICK / RECOMMENDED / WORTH_A_TRY)
 - [X] T020 [US1] Unit test the scoring + banding in `backend/test/scoring.spec.ts` (Vitest) — covers genre overlap, favorite similarity, exclusions, thresholds
-- [ ] T021 [US1] Implement `recommendations.service.ts` (deterministic only: shortlist → band → return `aiAssisted:false`) in `backend/src/recommendations/`
-- [ ] T022 [US1] Implement `POST /recommendations` controller with Zod validation (empty genres → 400) in `backend/src/recommendations/`
-- [ ] T023 [US1] Integration test `POST /recommendations` in `backend/test/recommendations.e2e-spec.ts` (Supertest): ≥10 results, no explicit, favorite excluded, 400 on empty
+- [X] T021 [US1] Implement `recommendations.service.ts` (deterministic only: shortlist → band → return `aiAssisted:false`) in `backend/src/recommendations/`
+- [X] T022 [US1] Implement `POST /recommendations` controller with Zod validation (empty genres → 400) in `backend/src/recommendations/`
+- [X] T023 [US1] Integration test `POST /recommendations` in `backend/test/recommendations.e2e-spec.ts` (Supertest): ≥10 results, no explicit, favorite excluded, 400 on empty
 
 ### Frontend
 - [ ] T024 [P] [US1] Generate typed API client from `contracts/openapi.yaml` into `frontend/src/api/`

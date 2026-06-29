@@ -5,9 +5,10 @@ import { HealthController } from './common/health.controller';
 import { PrismaModule } from './common/prisma.module';
 import { AllExceptionsFilter } from './common/all-exceptions.filter';
 import { CatalogModule } from './catalog/catalog.module';
+import { RecommendationsModule } from './recommendations/recommendations.module';
 
 @Module({
-  imports: [PrismaModule, CatalogModule],
+  imports: [PrismaModule, CatalogModule, RecommendationsModule],
   controllers: [HealthController],
   providers: [
     // Validate request body/query/params against the DTO's Zod schema (T015).
