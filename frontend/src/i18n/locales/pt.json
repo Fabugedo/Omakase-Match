@@ -2,7 +2,10 @@
   "appName": "Omakase-Match",
   "tagline": "Diga o que você ama — vamos servir animes que você vai amar.",
   "language": "Idioma",
+  "hero": { "kicker": "Seu concierge de anime" },
   "form": {
+    "showMore": "Mostrar mais temas",
+    "showLess": "Mostrar menos",
     "heading": "Do que você gosta?",
     "subheading": "Escolha alguns gêneros e temas, e nós cuidamos do resto.",
     "genres": "Gêneros",

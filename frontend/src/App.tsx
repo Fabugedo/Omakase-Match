@@ -44,7 +44,12 @@ function App() {
   return (
     <div className="app">
       <header className="site-header">
-        <span className="brand">{t('appName')}</span>
+        <span className="brand">
+          <span className="brand-mark" aria-hidden="true">
+            🍥
+          </span>
+          {t('appName')}
+        </span>
         <label className="lang-switcher">
           {t('language')}
           <select
@@ -63,6 +68,10 @@ function App() {
       {view === 'form' && (
         <>
           <div className="hero">
+            <div className="hero-emblem" aria-hidden="true">
+              🍣
+            </div>
+            <div className="hero-kicker">{t('hero.kicker')}</div>
             <h1>{t('appName')}</h1>
             <p className="tagline">{t('tagline')}</p>
           </div>
@@ -83,6 +92,9 @@ function App() {
 
       {view === 'error' && (
         <div className="panel state">
+          <span className="state-emoji" aria-hidden="true">
+            😔
+          </span>
           <p>{t('state.error')}</p>
           <button
             type="button"

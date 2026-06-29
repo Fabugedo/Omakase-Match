@@ -8,6 +8,8 @@ interface Props {
   onSubmit: (profile: TasteProfile) => void;
 }
 
+const THEMES_COLLAPSED = 14; // show a manageable first row of themes, reveal the rest on demand
+
 /** The taste form (T025): genre/theme chips, favorite search, 18+ toggle, submit. */
 export function TasteForm({ genres, onSubmit }: Props) {
   const { t } = useTranslation();
@@ -15,9 +17,15 @@ export function TasteForm({ genres, onSubmit }: Props) {
   const [favorites, setFavorites] = useState<AnimeSummary[]>([]);
   const [includeExplicit, setIncludeExplicit] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showAllThemes, setShowAllThemes] = useState(false);
 
   const genreList = genres.filter((g) => g.kind === 'GENRE');
   const themeList = genres.filter((g) => g.kind === 'THEME');
+  // Keep any selected-but-hidden themes visible so selections never disappear.
+  const visibleThemes =
+    showAllThemes || themeList.length <= THEMES_COLLAPSED
+      ? themeList
+      : themeList.filter((g, i) => i < THEMES_COLLAPSED || selected.includes(g.id));
 
   const toggle = (id: number) => {
     setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
@@ -60,13 +68,18 @@ export function TasteForm({ genres, onSubmit }: Props) {
         <div className="subgroup-label">{t('form.genres')}</div>
         {chips(genreList)}
         <div className="subgroup-label">{t('form.themes')}</div>
-        {chips(themeList)}
+        {chips(visibleThemes)}
+        {themeList.length > THEMES_COLLAPSED && (
+          <button type="button" className="link-btn" onClick={() => setShowAllThemes((v) => !v)}>
+            {showAllThemes ? t('form.showLess') : t('form.showMore')}
+          </button>
+        )}
       </div>
 
       <div className="form-section">
-        <div className="section-label">
-          {t('form.favorites')}{' '}
-          <span className="optional-tag">({t('form.favoritesOptional')})</span>
+        <div className="section-head">
+          <span className="section-label">{t('form.favorites')}</span>
+          <span className="optional-tag">{t('form.favoritesOptional')}</span>
         </div>
         <div className="section-hint">{t('form.favoritesHint')}</div>
         <FavoriteSearch

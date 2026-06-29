@@ -8,6 +8,12 @@ interface Props {
 
 const BAND_ORDER = ['CHEFS_PICK', 'RECOMMENDED', 'WORTH_A_TRY'] as const;
 
+const BAND_EMOJI: Record<(typeof BAND_ORDER)[number], string> = {
+  CHEFS_PICK: '🍣',
+  RECOMMENDED: '🌟',
+  WORTH_A_TRY: '🍵',
+};
+
 /** Results view (T026): warm cards grouped by band; plain-text only; friendly states. */
 export function Results({ data, onStartOver }: Props) {
   const { t } = useTranslation();
@@ -16,6 +22,9 @@ export function Results({ data, onStartOver }: Props) {
   if (results.length === 0) {
     return (
       <div className="panel state">
+        <span className="state-emoji" aria-hidden="true">
+          🍱
+        </span>
         <p>{t('results.empty')}</p>
         <button
           type="button"
@@ -50,8 +59,12 @@ export function Results({ data, onStartOver }: Props) {
 
       {groups.map((group) => (
         <div key={group.band} className={`band-section band-${group.band}`}>
-          <div className="band-header">
+          <div className="band-head">
+            <span className="band-emoji" aria-hidden="true">
+              {BAND_EMOJI[group.band]}
+            </span>
             <span className="band-badge">{t(`results.bands.${group.band}`)}</span>
+            <span className="band-count">{group.items.length}</span>
             <span className="band-rule" aria-hidden="true" />
           </div>
           <div className="cards">
@@ -69,9 +82,11 @@ function AnimeCard({ item }: { item: Recommendation }) {
   return (
     <article className="card">
       {item.imageUrl ? (
-        <img className="card-cover" src={item.imageUrl} alt={item.title} loading="lazy" />
+        <div className="card-cover-wrap">
+          <img className="card-cover" src={item.imageUrl} alt={item.title} loading="lazy" />
+        </div>
       ) : (
-        <div className="card-cover placeholder" aria-hidden="true">
+        <div className="card-cover-wrap placeholder" aria-hidden="true">
           🍥
         </div>
       )}
