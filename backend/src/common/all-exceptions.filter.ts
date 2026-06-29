@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
+import { ZodSerializationException } from 'nestjs-zod';
 import type { Request, Response } from 'express';
 
 /**
@@ -50,7 +51,14 @@ export class AllExceptionsFilter implements ExceptionFilter {
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let body: ErrorBody = { message: 'Internal server error', code: 'INTERNAL_ERROR' };
 
-    if (exception instanceof HttpException) {
+    if (exception instanceof ZodSerializationException) {
+      // A response failed its own schema — a server bug, not a client error.
+      // Log the detail server-side; never expose the response shape to clients.
+      this.logger.error(
+        `Response serialization failed on ${req.method} ${req.url}`,
+        String(exception.getZodError()),
+      );
+    } else if (exception instanceof HttpException) {
       status = exception.getStatus();
       body = normalizeHttpException(exception.getResponse(), status);
     } else {

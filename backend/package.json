@@ -26,9 +26,11 @@
     "@nestjs/common": "^11.1.27",
     "@nestjs/core": "^11.1.27",
     "@nestjs/platform-express": "^11.1.27",
+    "@nestjs/swagger": "^11.4.4",
     "@prisma/client": "^6.19.3",
     "ajv": "^8.20.0",
     "dotenv": "^17.4.2",
+    "nestjs-zod": "^5.4.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
     "zod": "^4.4.3"
