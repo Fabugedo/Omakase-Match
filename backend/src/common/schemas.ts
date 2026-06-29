@@ -49,6 +49,11 @@ export const ErrorSchema = z.object({
   code: z.string().optional(),
 });
 
+/** Query for GET /anime/search (autocomplete). */
+export const AnimeSearchQuerySchema = z.object({
+  q: z.string().min(1).max(100),
+});
+
 export type GenreKind = z.infer<typeof GenreKindSchema>;
 export type Band = z.infer<typeof BandSchema>;
 export type Genre = z.infer<typeof GenreSchema>;
@@ -57,3 +62,4 @@ export type TasteProfile = z.infer<typeof TasteProfileSchema>;
 export type Recommendation = z.infer<typeof RecommendationSchema>;
 export type RecommendationsResponse = z.infer<typeof RecommendationsResponseSchema>;
 export type ApiError = z.infer<typeof ErrorSchema>;
+export type AnimeSearchQuery = z.infer<typeof AnimeSearchQuerySchema>;

@@ -4,9 +4,10 @@ import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
 import { HealthController } from './common/health.controller';
 import { PrismaModule } from './common/prisma.module';
 import { AllExceptionsFilter } from './common/all-exceptions.filter';
+import { CatalogModule } from './catalog/catalog.module';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, CatalogModule],
   controllers: [HealthController],
   providers: [
     // Validate request body/query/params against the DTO's Zod schema (T015).

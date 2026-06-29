@@ -57,8 +57,8 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 **Independent Test**: With AI absent, submit a taste profile and receive ≥10 banded results (Chef's pick / Recommended / Worth a try), favorites excluded, explicit excluded unless 18+ confirmed.
 
 ### Backend
-- [ ] T016 [P] [US1] Implement `GET /genres` (controller + `catalog.service.getGenres`) in `backend/src/catalog/`
-- [ ] T017 [P] [US1] Implement `GET /anime/search?q=` (autocomplete) in `backend/src/catalog/`
+- [X] T016 [P] [US1] Implement `GET /genres` (controller + `catalog.service.getGenres`) in `backend/src/catalog/`
+- [X] T017 [P] [US1] Implement `GET /anime/search?q=` (autocomplete) in `backend/src/catalog/`
 - [X] T018 [P] [US1] Implement pure scoring in `backend/src/recommendations/scoring.ts` (candidate set + weighted score + top-25 shortlist per data-model.md)
 - [X] T019 [P] [US1] Implement banding in `backend/src/recommendations/banding.ts` (score → CHEFS_PICK / RECOMMENDED / WORTH_A_TRY)
 - [X] T020 [US1] Unit test the scoring + banding in `backend/test/scoring.spec.ts` (Vitest) — covers genre overlap, favorite similarity, exclusions, thresholds
