@@ -38,7 +38,7 @@ increment. US1 alone is a working, shippable MVP (no AI needed).
 **Purpose**: The catalog and shared plumbing. **⚠️ No user story can be built until this is done** — recommendations need a populated catalog.
 
 - [X] T008 Add Prisma to `backend/`; define `backend/prisma/schema.prisma` with `Anime`, `Genre`, `AnimeGenre` models + enums (`GenreKind`, `ContentRating`) per data-model.md
-- [ ] T009 Generate the initial Prisma migration and a `PrismaService` in `backend/src/common/prisma.service.ts`
+- [X] T009 Generate the initial Prisma migration and a `PrismaService` in `backend/src/common/prisma.service.ts`
 - [X] T010 [P] Define shared Zod schemas mirroring `contracts/openapi.yaml` in `backend/src/common/schemas.ts` (TasteProfile, Recommendation, Genre, AnimeSummary, Error)
 - [X] T011 [P] Add AJV validators for raw Jikan responses in `backend/src/catalog/ingestion/jikan.schema.ts` (untrusted external input)
 - [X] T012 Implement Jikan client + throttling in `backend/src/catalog/ingestion/jikan.client.ts`
