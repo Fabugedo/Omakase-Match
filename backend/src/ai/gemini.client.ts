@@ -20,7 +20,7 @@ interface GeminiResponse {
 export class GeminiClient {
   private readonly logger = new Logger(GeminiClient.name);
   private readonly apiKey = process.env.GEMINI_API_KEY?.trim();
-  private readonly model = process.env.GEMINI_MODEL?.trim() || 'gemini-2.0-flash';
+  private readonly model = process.env.GEMINI_MODEL?.trim() || 'gemini-2.5-flash';
 
   get isConfigured(): boolean {
     return Boolean(this.apiKey);
