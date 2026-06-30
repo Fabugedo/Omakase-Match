@@ -4,6 +4,9 @@
 
 generator client {
   provider = "prisma-client-js"
+  // "native" = local dev; the debian targets are for Linux hosts (Render/Vercel),
+  // covering both OpenSSL 1.1 and 3.0 so the query engine binary is always present.
+  binaryTargets = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
 datasource db {
