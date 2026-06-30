@@ -21,7 +21,6 @@ export function TasteForm({ genres, onSubmit, initialSelected }: Props) {
   const { t } = useTranslation();
   const [selected, setSelected] = useState<number[]>(initialSelected ?? []);
   const [favorites, setFavorites] = useState<AnimeSummary[]>([]);
-  const [includeExplicit, setIncludeExplicit] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showAllThemes, setShowAllThemes] = useState(false);
 
@@ -44,10 +43,12 @@ export function TasteForm({ genres, onSubmit, initialSelected }: Props) {
       setError(t('form.needGenre'));
       return;
     }
+    // Anonymous use is SFW-only; the mature gate moves to registered, age-confirmed
+    // accounts in feature 002 (supersedes the old anonymous self-attestation toggle).
     onSubmit({
       genreIds: selected,
       favoriteAnimeIds: favorites.map((f) => f.id),
-      includeExplicit,
+      includeExplicit: false,
     });
   };
 
@@ -93,20 +94,6 @@ export function TasteForm({ genres, onSubmit, initialSelected }: Props) {
           onAdd={(a) => setFavorites((prev) => [...prev, a])}
           onRemove={(id) => setFavorites((prev) => prev.filter((f) => f.id !== id))}
         />
-      </div>
-
-      <div className="form-section">
-        <label className="explicit-row">
-          <input
-            type="checkbox"
-            checked={includeExplicit}
-            onChange={(e) => setIncludeExplicit(e.target.checked)}
-          />
-          <span className="explicit-text">
-            <strong>{t('form.explicit')}</strong>
-            <span>{t('form.explicitConfirm')}</span>
-          </span>
-        </label>
       </div>
 
       <div className="submit-row">

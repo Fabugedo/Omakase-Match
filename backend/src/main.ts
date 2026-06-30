@@ -7,7 +7,8 @@ import { env } from './common/config/env';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  // Lock CORS to the deployed frontend when CORS_ORIGIN is set; allow all in local dev.
+  app.enableCors({ origin: env.CORS_ORIGIN ?? true });
 
   // OpenAPI generated from the Zod DTOs (T015); cleanupOpenApiDoc post-processes
   // the nestjs-zod schemas into a valid document. Served at /docs.

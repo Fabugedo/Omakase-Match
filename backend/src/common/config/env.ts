@@ -11,8 +11,11 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(3000),
   DATABASE_URL: z.string().min(1).optional(),
-  ANTHROPIC_API_KEY: z.string().min(1).optional(),
-  ANTHROPIC_MODEL: z.string().min(1).default('claude-haiku-4-5'),
+  // AI provider (US4). Optional — unset means AI-off (deterministic fallback).
+  GEMINI_API_KEY: z.string().min(1).optional(),
+  GEMINI_MODEL: z.string().min(1).default('gemini-2.5-flash'),
+  // Allowed browser origin for CORS (e.g. the deployed frontend URL). Unset = allow all.
+  CORS_ORIGIN: z.string().min(1).optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);
