@@ -1,0 +1,20 @@
+# Render Blueprint — auto-configures the backend web service.
+# In Render: New + → Blueprint → connect this repo → it reads this file.
+# You only enter the two secret values (DATABASE_URL, GEMINI_API_KEY) when prompted.
+services:
+  - type: web
+    name: omakase-backend
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: DATABASE_URL
+        sync: false # you paste your Neon connection string when prompted
+      - key: GEMINI_API_KEY
+        sync: false # you paste your Gemini key when prompted
