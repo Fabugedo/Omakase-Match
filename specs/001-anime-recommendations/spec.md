@@ -19,6 +19,11 @@
 
 - Q: Should the app support multiple languages (boss's audience is Africa & Latin America)? → A: Yes — the UI supports **English, Spanish, Portuguese, French** (English default). Per-recommendation explanations are written in the selected language. (Implementation: i18n translation files + AI-written blurbs in-language; not live page translation.)
 
+### Session 2026-06-29
+
+- Q: Is the structured genre/theme form the main way a visitor expresses taste? → A: No. The **primary** input becomes a free-text, conversational box ("tell us what you're in the mood for"); the structured genre/theme chips become an **optional refinement** revealed after the first interaction. Rationale: a wall of ~25+ tags is intimidating as a first impression.
+- Q: Which AI provider powers the assist (taste interpretation + explanations)? → A: A **pluggable, backend-only provider selected via environment**; default **Google Gemini (free tier)**. When no provider key is configured, the system degrades to deterministic keyword matching. This **supersedes** the earlier "Claude Haiku 4.5" choice and is cost-driven for a low-volume learning/demo deployment.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Get anime recommendations from a taste form (Priority: P1)
@@ -67,6 +72,23 @@ After seeing results, the visitor can adjust their selections or favorites and r
 
 ---
 
+### User Story 4 - Describe your taste in your own words (Priority: P2)
+
+Instead of hunting through a list of genre/theme tags, a visitor types what they are in the mood for in natural language (e.g. "romantic novels and cute horror anime") and the system interprets it into a taste profile, then returns recommendations. This conversational box is the **default, primary** way to start; the structured genre/theme selection remains available as an optional refinement after the first interaction.
+
+**Why this priority**: It makes the entry point welcoming and removes the intimidation of a large tag list, but it is layered on top of US1's deterministic engine — the structured path still works on its own, and without the AI provider it degrades gracefully to keyword matching. An enhancement to the entry experience, not a hard dependency.
+
+**Independent Test**: Type a free-text description and confirm it produces a relevant taste profile (genres/themes drawn only from the real vocabulary) and a ranked recommendation list; with the AI provider disabled, confirm the same box still yields a reasonable profile via keyword matching and is never blocked.
+
+**Acceptance Scenarios**:
+
+1. **Given** a visitor on the start screen, **When** they describe their taste in free text and submit, **Then** the system interprets it into one or more known genres/themes and returns a ranked, labeled recommendation list.
+2. **Given** the AI provider is unavailable, **When** the visitor submits free text, **Then** the system still derives a taste profile by matching known genre/theme vocabulary and returns results (never blocked).
+3. **Given** results are shown, **When** the visitor opens the refinement panel, **Then** the interpreted genres/themes are pre-selected and the visitor can adjust them and regenerate.
+4. **Given** free text that matches no known vocabulary, **When** the visitor submits, **Then** the system explains it could not interpret the input and offers the structured selection instead.
+
+---
+
 ### Edge Cases
 
 - **No preferences selected**: the system asks for at least one preference and generates nothing.
@@ -97,6 +119,11 @@ After seeing results, the visitor can adjust their selections or favorites and r
 - **FR-014**: Visitors MUST be able to adjust their preferences and regenerate recommendations without restarting the experience. *(supports US3)*
 - **FR-015**: System MUST exclude adult/explicit (e.g. hentai / R18) anime from results by default, and MUST include such titles only after the visitor self-confirms they are 18 or older; this confirmation requires no account and is a self-attestation, not formal age verification.
 - **FR-016**: System MUST let the visitor use the interface in English, Spanish, Portuguese, or French (English as the default/fallback), and MUST write each recommendation's explanation in the visitor's selected language.
+- **FR-017**: System MUST offer free-text natural-language taste input as the primary entry point, interpreting it into a structured Taste Profile (genres/themes from the predefined vocabulary) that feeds the same deterministic ranking engine as the structured form. *(supports US4)*
+- **FR-018**: System MUST, when the AI interpreter is unavailable, still derive a Taste Profile from the free text using deterministic keyword matching against the known genre/theme vocabulary; the conversational input MUST NOT be blocked by the absence of an AI provider.
+- **FR-019**: System MUST keep structured genre/theme selection available as an optional refinement after the first interaction, pre-populated with the interpreted selection so the visitor can adjust and regenerate.
+- **FR-020**: System MUST treat free-text input and AI interpretation as untrusted: the interpreted profile MUST be validated against the real genre/theme vocabulary, accepting only existing tags and ignoring anything else (no injection, no fabricated tags).
+- **FR-021**: The AI provider MUST be invoked only from the backend and selected via environment configuration (pluggable); no provider key or direct provider call is ever exposed to the frontend.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -132,6 +159,6 @@ After seeing results, the visitor can adjust their selections or favorites and r
 
 - User accounts, login, and persisted taste/history.
 - User-to-user matching or any social/messaging features.
-- Free-text natural-language taste input (only structured selection in the MVP).
+- ~~Free-text natural-language taste input~~ — **moved into scope (2026-06-29)** as US4 (FR-017–FR-021); the conversational input is now the primary entry point.
 - A native mobile (React Native) app.
 - AI-curated themed groupings/buckets of results (possible later enhancement).

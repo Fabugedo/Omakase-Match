@@ -15,6 +15,17 @@
     "cta": "Começar"
   },
   "steps": { "taste": "01 · Diga o que você ama", "results": "02 · Suas combinações" },
+  "chat": {
+    "heading": "O que você está a fim de ver?",
+    "hint": "Descreva com suas palavras — um clima, alguns gêneros, uma mistura. A gente cuida do resto.",
+    "placeholder": "ex.: novelas românticas e animes de terror fofos, pode me ajudar a achar algo?",
+    "submit": "Encontrar meu anime",
+    "pickManually": "Prefere escolher por gênero?",
+    "noMatch": "Hmm, não consegui entender bem. Tente descrever de outro jeito ou escolha alguns gêneros abaixo.",
+    "useChat": "← Melhor descrever em palavras",
+    "refine": "Ajustar seu gosto",
+    "refineHide": "Ocultar ajustes"
+  },
   "form": {
     "showMore": "Mostrar mais temas",
     "showLess": "Mostrar menos",

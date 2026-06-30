@@ -19,6 +19,10 @@ export type Genre = components['schemas']['Genre'];
 export type AnimeSummary = components['schemas']['AnimeSummary'];
 export type TasteProfile = components['schemas']['TasteProfile'];
 export type Recommendation = components['schemas']['Recommendation'];
+export type InterpretResponse = components['schemas']['InterpretResponse'];
+
+const INTERPRET_LANGS = ['en', 'es', 'pt', 'fr'] as const;
+type InterpretLang = (typeof INTERPRET_LANGS)[number];
 
 export interface RecommendationsResult {
   results: Recommendation[];
@@ -47,4 +51,16 @@ export async function getRecommendations(profile: TasteProfile): Promise<Recomme
   const { data, error } = await client.POST('/recommendations', { body: profile });
   if (error || !data) throw new Error('Failed to generate recommendations');
   return data as RecommendationsResult;
+}
+
+/** Interpret a free-text taste description into known genres/themes (US4). */
+export async function interpretTaste(text: string, language?: string): Promise<InterpretResponse> {
+  const lang = INTERPRET_LANGS.includes(language as InterpretLang)
+    ? (language as InterpretLang)
+    : undefined;
+  const { data, error } = await client.POST('/interpret', {
+    body: { text, ...(lang ? { language: lang } : {}) },
+  });
+  if (error || !data) throw new Error('Failed to interpret taste');
+  return data;
 }

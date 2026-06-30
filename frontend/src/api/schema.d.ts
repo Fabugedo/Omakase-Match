@@ -163,6 +163,55 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/interpret': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Interpret free-text taste into known genres/themes (US4) */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['InterpretRequest'];
+        };
+      };
+      responses: {
+        /** @description Genres/themes interpreted from the free text (only real vocabulary; may be empty). Falls back to deterministic keyword matching when the AI provider is unavailable. */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['InterpretResponse'];
+          };
+        };
+        /** @description Missing or invalid text */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['Error'];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/recommendations': {
     parameters: {
       query?: never;
@@ -255,6 +304,23 @@ export interface components {
       band: 'CHEFS_PICK' | 'RECOMMENDED' | 'WORTH_A_TRY';
       /** @description AI explanation; null when the AI assist is unavailable */
       reason?: string | null;
+    };
+    InterpretRequest: {
+      /** @description Free-text description of the anime taste the visitor is in the mood for */
+      text: string;
+      /**
+       * @description Optional hint for the interpreter
+       * @enum {string}
+       */
+      language?: 'en' | 'es' | 'pt' | 'fr';
+    };
+    InterpretResponse: {
+      genres: components['schemas']['Genre'][];
+      /**
+       * @description Which path produced the interpretation (AI provider vs deterministic fallback)
+       * @enum {string}
+       */
+      source: 'ai' | 'keyword';
     };
     Error: {
       message: string;

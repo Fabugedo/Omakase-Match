@@ -6,14 +6,20 @@ import type { AnimeSummary, Genre, TasteProfile } from '../../api/client';
 interface Props {
   genres: Genre[];
   onSubmit: (profile: TasteProfile) => void;
+  /** Pre-selected genre/theme ids — e.g. from the conversational interpreter (US4). */
+  initialSelected?: number[];
 }
 
 const THEMES_COLLAPSED = 14; // show a manageable first row of themes, reveal the rest on demand
 
-/** The taste form (T025): genre/theme chips, favorite search, 18+ toggle, submit. */
-export function TasteForm({ genres, onSubmit }: Props) {
+/**
+ * The structured taste form (T025): genre/theme chips, favorite search, 18+
+ * toggle, submit. Now also serves as the refinement step after the
+ * conversational input (US4) — `initialSelected` pre-fills the interpreted tags.
+ */
+export function TasteForm({ genres, onSubmit, initialSelected }: Props) {
   const { t } = useTranslation();
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selected, setSelected] = useState<number[]>(initialSelected ?? []);
   const [favorites, setFavorites] = useState<AnimeSummary[]>([]);
   const [includeExplicit, setIncludeExplicit] = useState(false);
   const [error, setError] = useState<string | null>(null);

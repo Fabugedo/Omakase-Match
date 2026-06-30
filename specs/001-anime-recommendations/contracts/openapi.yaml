@@ -67,6 +67,27 @@ paths:
               schema:
                 type: array
                 items: { $ref: "#/components/schemas/AnimeSummary" }
+  /interpret:
+    post:
+      summary: Interpret free-text taste into known genres/themes (US4)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/InterpretRequest" }
+      responses:
+        "200":
+          description: >
+            Genres/themes interpreted from the free text (only real vocabulary; may be empty).
+            Falls back to deterministic keyword matching when the AI provider is unavailable.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/InterpretResponse" }
+        "400":
+          description: Missing or invalid text
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
   /recommendations:
     post:
       summary: Generate banded anime recommendations from a taste profile
@@ -147,6 +168,30 @@ components:
           nullable: true
           description: AI explanation; null when the AI assist is unavailable
       required: [id, title, genres, band]
+    InterpretRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+          maxLength: 500
+          description: Free-text description of the anime taste the visitor is in the mood for
+        language:
+          type: string
+          enum: [en, es, pt, fr]
+          description: Optional hint for the interpreter
+      required: [text]
+    InterpretResponse:
+      type: object
+      properties:
+        genres:
+          type: array
+          items: { $ref: "#/components/schemas/Genre" }
+        source:
+          type: string
+          enum: [ai, keyword]
+          description: Which path produced the interpretation (AI provider vs deterministic fallback)
+      required: [genres, source]
     Error:
       type: object
       properties:

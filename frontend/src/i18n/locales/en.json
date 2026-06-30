@@ -15,6 +15,17 @@
     "cta": "Start matching"
   },
   "steps": { "taste": "01 · Tell us what you love", "results": "02 · Your matches" },
+  "chat": {
+    "heading": "What are you in the mood for?",
+    "hint": "Describe it in your own words — a vibe, a couple of genres, a mix. We'll figure out the rest.",
+    "placeholder": "e.g. romantic novels and cute horror anime, can you help me find something?",
+    "submit": "Find my anime",
+    "pickManually": "Prefer to pick by genre?",
+    "noMatch": "Hmm, I couldn't quite catch that. Try describing it differently, or pick some genres below.",
+    "useChat": "← Describe it in words instead",
+    "refine": "Refine your taste",
+    "refineHide": "Hide refinement"
+  },
   "form": {
     "showMore": "Show more themes",
     "showLess": "Show fewer",

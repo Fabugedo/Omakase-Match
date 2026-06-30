@@ -15,6 +15,17 @@
     "cta": "Empezar"
   },
   "steps": { "taste": "01 · Dinos qué te gusta", "results": "02 · Tus coincidencias" },
+  "chat": {
+    "heading": "¿Qué te apetece ver?",
+    "hint": "Descríbelo con tus palabras — una vibra, un par de géneros, una mezcla. Nosotros hacemos el resto.",
+    "placeholder": "p. ej. novelas románticas y anime de terror tierno, ¿me ayudas a encontrar algo?",
+    "submit": "Encontrar mi anime",
+    "pickManually": "¿Prefieres elegir por género?",
+    "noMatch": "Mmm, no logré entenderlo bien. Intenta describirlo de otra forma o elige algunos géneros abajo.",
+    "useChat": "← Mejor descríbelo con palabras",
+    "refine": "Afinar tu gusto",
+    "refineHide": "Ocultar ajustes"
+  },
   "form": {
     "showMore": "Mostrar más temas",
     "showLess": "Mostrar menos",

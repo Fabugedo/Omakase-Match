@@ -7,6 +7,8 @@ import {
   RecommendationsResponseSchema,
   ErrorSchema,
   AnimeSearchQuerySchema,
+  InterpretRequestSchema,
+  InterpretResponseSchema,
 } from './schemas';
 
 /**
@@ -21,3 +23,5 @@ export class RecommendationDto extends createZodDto(RecommendationSchema) {}
 export class RecommendationsResponseDto extends createZodDto(RecommendationsResponseSchema) {}
 export class ErrorDto extends createZodDto(ErrorSchema) {}
 export class AnimeSearchQueryDto extends createZodDto(AnimeSearchQuerySchema) {}
+export class InterpretRequestDto extends createZodDto(InterpretRequestSchema) {}
+export class InterpretResponseDto extends createZodDto(InterpretResponseSchema) {}

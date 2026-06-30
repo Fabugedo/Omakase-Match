@@ -15,6 +15,17 @@
     "cta": "Commencer"
   },
   "steps": { "taste": "01 · Dites-nous ce que vous aimez", "results": "02 · Vos correspondances" },
+  "chat": {
+    "heading": "Qu'avez-vous envie de regarder ?",
+    "hint": "Décrivez-le avec vos mots — une ambiance, quelques genres, un mélange. On s'occupe du reste.",
+    "placeholder": "ex. : des romans romantiques et des animes d'horreur mignons, pouvez-vous m'aider à trouver ?",
+    "submit": "Trouver mon anime",
+    "pickManually": "Vous préférez choisir par genre ?",
+    "noMatch": "Hmm, je n'ai pas bien saisi. Essayez de le décrire autrement, ou choisissez des genres ci-dessous.",
+    "useChat": "← Décrire avec des mots plutôt",
+    "refine": "Affiner vos goûts",
+    "refineHide": "Masquer les réglages"
+  },
   "form": {
     "showMore": "Afficher plus de thèmes",
     "showLess": "Afficher moins",

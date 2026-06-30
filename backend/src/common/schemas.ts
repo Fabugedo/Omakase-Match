@@ -54,6 +54,18 @@ export const AnimeSearchQuerySchema = z.object({
   q: z.string().min(1).max(100),
 });
 
+/** POST /interpret — free-text taste input (US4). */
+export const InterpretRequestSchema = z.object({
+  text: z.string().min(1).max(500),
+  language: z.enum(['en', 'es', 'pt', 'fr']).optional(),
+});
+
+/** Interpreted taste: only real genres/themes, plus which path produced them. */
+export const InterpretResponseSchema = z.object({
+  genres: z.array(GenreSchema),
+  source: z.enum(['ai', 'keyword']),
+});
+
 export type GenreKind = z.infer<typeof GenreKindSchema>;
 export type Band = z.infer<typeof BandSchema>;
 export type Genre = z.infer<typeof GenreSchema>;
@@ -63,3 +75,5 @@ export type Recommendation = z.infer<typeof RecommendationSchema>;
 export type RecommendationsResponse = z.infer<typeof RecommendationsResponseSchema>;
 export type ApiError = z.infer<typeof ErrorSchema>;
 export type AnimeSearchQuery = z.infer<typeof AnimeSearchQuerySchema>;
+export type InterpretRequest = z.infer<typeof InterpretRequestSchema>;
+export type InterpretResponse = z.infer<typeof InterpretResponseSchema>;
