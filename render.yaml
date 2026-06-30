@@ -7,7 +7,9 @@ services:
     runtime: node
     plan: free
     rootDir: backend
-    buildCommand: npm install && npm run build
+    # --include=dev forces devDependencies (@nestjs/cli, prisma, typescript) to
+    # install even though NODE_ENV=production, so `nest build` + `prisma generate` work.
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm run start
     envVars:
       - key: NODE_ENV
